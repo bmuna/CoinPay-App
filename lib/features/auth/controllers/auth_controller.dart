@@ -1,11 +1,8 @@
-import 'dart:convert';
-
-import 'package:coin_pay/features/auth/models/auth_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
-import 'package:http/http.dart' as http;
-
+import '../../../../core/network/dio_client.dart';
 import '../models/error_model.dart';
+import '../models/auth_model.dart';
 
 class AuthController extends ChangeNotifier {
   bool _isLoading = false;
@@ -30,9 +27,11 @@ class AuthController extends ChangeNotifier {
 
       final uri = Uri.parse(result);
       final email = uri.queryParameters["email"];
+      final token = uri.queryParameters["token"];
 
-      if (email != null) {
-        print("Signed in with email: $email");
+      if (email != null && token != null) {
+        print("Signed in: $email");
+        print("Token: $token");
         _isSuccess = true;
       } else {
         _error = 'No email returned in callback';
@@ -54,19 +53,16 @@ class AuthController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await http.post(
-        Uri.parse('http://localhost:8081/api/signin'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(model.toJson()),
+      final response = await DioClient.dio.post(
+        '/signin',
+        data: model.toJson(),
       );
-
-      final responseData = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
         _isSuccess = true;
         _error = null;
       } else {
-        final errorModel = ErrorModel.fromJson(responseData);
+        final errorModel = ErrorModel.fromJson(response.data);
         _error = errorModel.error;
         _isSuccess = false;
       }
@@ -86,19 +82,16 @@ class AuthController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await http.post(
-        Uri.parse('http://localhost:8081/api/signup'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(model.toJson()),
+      final response = await DioClient.dio.post(
+        '/signup',
+        data: model.toJson(),
       );
-
-      final responseData = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
         _isSuccess = true;
         _error = null;
       } else {
-        final errorModel = ErrorModel.fromJson(responseData);
+        final errorModel = ErrorModel.fromJson(response.data);
         _error = errorModel.error;
         _isSuccess = false;
       }
