@@ -33,7 +33,10 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_outlined, color: Colors.white),
+            icon: const Icon(
+              Icons.notifications_outlined,
+              color: Colors.white,
+            ),
             onPressed: () {},
           )
               .animate(delay: 400.ms)
@@ -56,7 +59,11 @@ class HomeScreen extends StatelessWidget {
                       .fadeIn(duration: 600.ms, curve: Curves.easeInOut)
                       .slideY(begin: 20, end: 0, curve: Curves.easeOutQuint, duration: 800.ms)
                       .scale(
-                          begin: const Offset(0.97, 0.97), end: const Offset(1, 1), curve: Curves.easeOutExpo, duration: 800.ms),
+                        begin: const Offset(0.97, 0.97),
+                        end: const Offset(1, 1),
+                        curve: Curves.easeOutExpo,
+                        duration: 800.ms,
+                      ),
                   const SizedBox(height: 24),
                   const Text(
                     "Recent Transactions",
@@ -65,12 +72,18 @@ class HomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
-                  ).animate(delay: 300.ms).fadeIn(duration: 400.ms).slideX(begin: -20, end: 0, duration: 500.ms),
+                  ).animate(delay: 300.ms).fadeIn(duration: 400.ms).slideX(
+                        begin: -20,
+                        end: 0,
+                        duration: 500.ms,
+                      ),
                   const SizedBox(height: 12),
-                  const TransactionList()
-                      .animate(delay: 400.ms)
-                      .fadeIn(duration: 600.ms, curve: Curves.easeInOut)
-                      .slideY(begin: 30, end: 0, curve: Curves.easeOutQuint, duration: 800.ms),
+                  const TransactionList().animate(delay: 400.ms).fadeIn(duration: 600.ms, curve: Curves.easeInOut).slideY(
+                        begin: 30,
+                        end: 0,
+                        curve: Curves.easeOutQuint,
+                        duration: 800.ms,
+                      ),
                 ],
               ),
             ),
@@ -90,10 +103,12 @@ class HomeScreen extends StatelessWidget {
         label: const Text('Pay'),
         backgroundColor: AppTheme.primaryColor,
         foregroundColor: Colors.white,
-      )
-          .animate(delay: 600.ms)
-          .fadeIn(duration: 600.ms, curve: Curves.easeInOut)
-          .scale(begin: const Offset(0.9, 0.9), end: const Offset(1, 1), curve: Curves.easeOutBack, duration: 800.ms),
+      ).animate(delay: 600.ms).fadeIn(duration: 600.ms, curve: Curves.easeInOut).scale(
+            begin: const Offset(0.9, 0.9),
+            end: const Offset(1, 1),
+            curve: Curves.easeOutBack,
+            duration: 800.ms,
+          ),
     );
   }
 }

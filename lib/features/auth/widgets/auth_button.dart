@@ -6,6 +6,7 @@ class AuthButton extends StatelessWidget {
   final String text;
   final String? icon;
   final bool isOutlined;
+  final bool isLoading;
 
   const AuthButton({
     super.key,
@@ -13,6 +14,7 @@ class AuthButton extends StatelessWidget {
     required this.text,
     this.icon,
     this.isOutlined = false,
+    this.isLoading = false,
   });
 
   @override
@@ -21,7 +23,7 @@ class AuthButton extends StatelessWidget {
       width: double.infinity,
       height: 56,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: isOutlined ? Colors.transparent : AppTheme.primaryColor,
           foregroundColor: isOutlined ? AppTheme.primaryColor : Colors.white,
@@ -30,7 +32,7 @@ class AuthButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
             side: isOutlined
-                ? BorderSide(
+                ? const BorderSide(
                     color: AppTheme.primaryColor,
                     width: 1.5,
                   )
@@ -40,21 +42,32 @@ class AuthButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (icon != null) ...[
-              Image.asset(
-                icon!,
-                height: 24,
+            if (isLoading)
+              const SizedBox(
                 width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )
+            else ...[
+              if (icon != null) ...[
+                Image.asset(
+                  icon!,
+                  height: 24,
+                  width: 24,
+                ),
+                const SizedBox(width: 12),
+              ],
+              Text(
+                text,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const SizedBox(width: 12),
             ],
-            Text(
-              text,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
           ],
         ),
       ),

@@ -1,8 +1,7 @@
-import 'package:coin_pay/features/auth/presentation/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../home/presentation/home_screen.dart';
+import '../auth/views/auth_view.dart';
 import '../../core/theme/app_theme.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -36,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             pageBuilder: (context, animation, secondaryAnimation) {
               return FadeTransition(
                 opacity: animation,
-                child: const HomeScreen(),
+                child: const AuthView(),
               );
             },
           ),
@@ -75,7 +74,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                     ),
                   ],
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.currency_bitcoin,
                   size: 80,
                   color: AppTheme.primaryColor,
